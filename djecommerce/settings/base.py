@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'django_countries',
 
     'core',
+
+    'whitenoise.runserver_nostatic',  # Add this line
 ]
 
 MIDDLEWARE = [
@@ -38,6 +40,8 @@ MIDDLEWARE = [
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line near the top, after SecurityMiddleware
 ]
 
 ROOT_URLCONF = 'djecommerce.urls'
@@ -71,7 +75,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_in_env')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For Vercel deployment, set STATIC_ROOT to a directory named 'staticfiles'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 
 # Auth
@@ -84,3 +88,6 @@ LOGIN_REDIRECT_URL = '/'
 
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Whitenoise settings (optional, but recommended)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
