@@ -1,0 +1,25 @@
+<!-- filepath: c:\Users\user\django_app\your_app\templates\games.html -->
+{% load static %}
+{% extends "base.html" %}
+{% block content %}
+<h2>Games</h2>
+<div class="row">
+  {% for item in object_list %}
+    <div class="col-md-4">
+      <div class="card mb-4">
+        {% if item.image %}
+          <img src="{{ item.image.url }}" alt="{{ item.title }}" class="card-img-top">
+        {% endif %}
+        <div class="card-body">
+          <h5>{{ item.title }}</h5>
+          <p>${{ item.discount_price|default:item.price }}</p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No games found.</p>
+  {% endfor %}
+</div>
+<!-- Display the forza.jpg image from the static/img folder: -->
+<img src="{% static 'img/forza.jpg' %}" alt="Forza Game" class="img-fluid">
+{% endblock %}

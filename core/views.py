@@ -12,8 +12,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 
-from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
-from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile
+from core.forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
+from core.models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -517,3 +517,33 @@ class RequestRefundView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "This order does not exist.")
                 return redirect("core:request-refund")
+
+
+class GamesView(ListView):
+    model = Item
+    template_name = "games.html"
+    context_object_name = "object_list"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Item.objects.filter(category='G')
+
+
+class SoftwareView(ListView):
+    model = Item
+    template_name = "software.html"
+    context_object_name = "object_list"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Item.objects.filter(category='SO')
+
+
+class MoviesView(ListView):
+    model = Item
+    template_name = "movies.html"
+    context_object_name = "object_list"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Item.objects.filter(category='M')

@@ -2,11 +2,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', include('core.urls', namespace='core'))
+    path('', include('core.urls', namespace='core')),
+    path('games/', views.games_list, name='games'),
+    path('softwares/', views.softwares_list, name='softwares'),
+    path('movies/', views.movies_list, name='movies'),
+    # ...other urls...
 ]
 
 if settings.DEBUG:

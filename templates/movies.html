@@ -1,0 +1,21 @@
+<!-- filepath: c:\Users\user\django_app\your_app\templates\movies.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Movies</h2>
+<div class="row">
+  {% for item in object_list %}
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <img src="{% static 'images/img/Movies/' %}{{ item.image_filename }}" alt="{{ item.title }}">
+        <div class="card-body">
+          <h5>{{ item.title }}</h5>
+          <p>${{ item.discount_price|default:item.price }}</p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No movies found.</p>
+  {% endfor %}
+</div>
+{% endblock %}
